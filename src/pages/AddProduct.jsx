@@ -4,7 +4,7 @@ import { IoCloseOutline } from "react-icons/io5";
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner'; 
 
-const Addtest2 = () => {
+const AddProduct = () => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
@@ -171,4 +171,4 @@ const Addtest2 = () => {
     );
 };
 
-export default Addtest2;
+export default AddProduct;
