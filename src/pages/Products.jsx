@@ -12,7 +12,7 @@ import productImage2 from '../assets/2.png';
 import productImage3 from '../assets/3.png';
 import productImage4 from '../assets/4.png';
 
-const Products2 = () => {
+const Products = () => {
     const initialProducts = [
         { id: 1, title: 'Product Name', image: productImage1, price: 100, category: 'فئة 1' },
         { id: 2, title: 'Product Name', image: productImage2, price: 200, category: 'فئة 1' },
@@ -30,9 +30,20 @@ const Products2 = () => {
     ];
 
     // قراءة المنتجات من localStorage أو استخدام المنتجات الافتراضية
+    // const [products, setProducts] = useState(() => {
+    //     const storedProducts = localStorage.getItem('products');
+    //     return storedProducts ? JSON.parse(storedProducts) : initialProducts;
+    // });
+
+     // قراءة المنتجات من localStorage أو استخدام المنتجات الافتراضية
     const [products, setProducts] = useState(() => {
-        const storedProducts = localStorage.getItem('products');
-        return storedProducts ? JSON.parse(storedProducts) : initialProducts;
+        try {
+            const storedProducts = localStorage.getItem('products');
+            return storedProducts ? JSON.parse(storedProducts) : initialProducts;
+        } catch (error) {
+            console.error('حدث خطأ أثناء قراءة المنتجات من localStorage:', error);
+            return initialProducts; // استخدام المنتجات الافتراضية في حالة حدوث خطأ
+        }
     });
 
     const [search, setSearch] = useState('');
@@ -41,8 +52,17 @@ const Products2 = () => {
     const productsPerPage = 4;
 
     // تحديث localStorage كلما تغيرت قائمة المنتجات
+    // useEffect(() => {
+    //     localStorage.setItem('products', JSON.stringify(products));
+    // }, [products]);
+
+    // تحديث localStorage كلما تغيرت قائمة المنتجات
     useEffect(() => {
-        localStorage.setItem('products', JSON.stringify(products));
+        try {
+            localStorage.setItem('products', JSON.stringify(products));
+        } catch (error) {
+            console.error('حدث خطأ أثناء تحديث localStorage:', error);
+        }
     }, [products]);
 
     // دالة لإضافة منتج جديد
@@ -93,4 +113,4 @@ const Products2 = () => {
     );
 };
 
-export default Products2;
+export default Products;

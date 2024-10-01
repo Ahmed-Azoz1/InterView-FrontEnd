@@ -12,29 +12,81 @@ const AddProduct = () => {
     const [photos, setPhotos] = useState([]);
     const navigate = useNavigate(); 
 
+    // const handlePhotoUpload = (event) => {
+    //     const files = Array.from(event.target.files);
+    //     const newPhotos = [];
+        
+    //     files.forEach(file => {
+    //         const reader = new FileReader();
+    //         reader.onload = () => {
+    //             newPhotos.push(reader.result); 
+    //             if (newPhotos.length === files.length) {
+    //                 setPhotos(newPhotos); 
+    //             }
+    //         };
+    //         reader.readAsDataURL(file); 
+    //     });
+    // };
+
     const handlePhotoUpload = (event) => {
         const files = Array.from(event.target.files);
         const newPhotos = [];
         
-        files.forEach(file => {
+        files.forEach((file) => {
             const reader = new FileReader();
             reader.onload = () => {
-                newPhotos.push(reader.result); 
+                newPhotos.push(reader.result);
                 if (newPhotos.length === files.length) {
                     setPhotos(newPhotos); 
                 }
             };
-            reader.readAsDataURL(file); 
+            reader.onerror = () => {
+                toast.error('حدث خطأ أثناء تحميل الصورة، يرجى المحاولة مرة أخرى.');
+            };
+            
+            try {
+                reader.readAsDataURL(file);
+            } catch (error) {
+                toast.error('حدث خطأ أثناء قراءة الملف: ' + error.message);
+            }
         });
     };
 
+    // const handleSubmit = async (event) => {
+    //     event.preventDefault();
+
+    //     if (photos.length === 0) {
+    //         toast.error('يرجى تحميل صورة واحدة على الأقل!');
+    //         return;
+    //     }
+    //     const productData = {
+    //         id: Date.now(),
+    //         title,
+    //         description,
+    //         category,
+    //         price,
+    //         image: photos[0], 
+    //     };
+    //     const storedProducts = JSON.parse(localStorage.getItem('products')) || [];
+    //     const updatedProducts = [...storedProducts, productData];
+    //     localStorage.setItem('products', JSON.stringify(updatedProducts));
+    //     toast.success('تم إضافة المنتج بنجاح!');
+    //     setTitle('');
+    //     setDescription('');
+    //     setCategory('');
+    //     setPrice('');
+    //     setPhotos([]);
+    //     navigate('/');
+    // };
+
     const handleSubmit = async (event) => {
         event.preventDefault();
-
+    
         if (photos.length === 0) {
             toast.error('يرجى تحميل صورة واحدة على الأقل!');
             return;
         }
+    
         const productData = {
             id: Date.now(),
             title,
@@ -43,17 +95,25 @@ const AddProduct = () => {
             price,
             image: photos[0], 
         };
-        const storedProducts = JSON.parse(localStorage.getItem('products')) || [];
-        const updatedProducts = [...storedProducts, productData];
-        localStorage.setItem('products', JSON.stringify(updatedProducts));
-        toast.success('تم إضافة المنتج بنجاح!');
-        setTitle('');
-        setDescription('');
-        setCategory('');
-        setPrice('');
-        setPhotos([]);
-        navigate('/');
+    
+        try {
+            const storedProducts = JSON.parse(localStorage.getItem('products')) || [];
+            const updatedProducts = [...storedProducts, productData];
+            localStorage.setItem('products', JSON.stringify(updatedProducts));
+            toast.success('تم إضافة المنتج بنجاح!');
+            
+            setTitle('');
+            setDescription('');
+            setCategory('');
+            setPrice('');
+            setPhotos([]);
+            
+            navigate('/');
+        } catch (error) {
+            toast.error('حدث خطأ أثناء إضافة المنتج: ' + error.message);
+        }
     };
+    
 
     const fileInputRef = useRef(null);
     const handleUploadClick = () => {
