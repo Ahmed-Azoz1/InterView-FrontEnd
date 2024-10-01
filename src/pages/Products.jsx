@@ -29,20 +29,13 @@ const Products = () => {
         { id: 13, title: 'Product Name', image: productImage2, price: 250, category: 'فئة 2' },
     ];
 
-    // قراءة المنتجات من localStorage أو استخدام المنتجات الافتراضية
-    // const [products, setProducts] = useState(() => {
-    //     const storedProducts = localStorage.getItem('products');
-    //     return storedProducts ? JSON.parse(storedProducts) : initialProducts;
-    // });
-
-     // قراءة المنتجات من localStorage أو استخدام المنتجات الافتراضية
     const [products, setProducts] = useState(() => {
         try {
             const storedProducts = localStorage.getItem('products');
             return storedProducts ? JSON.parse(storedProducts) : initialProducts;
         } catch (error) {
             console.error('حدث خطأ أثناء قراءة المنتجات من localStorage:', error);
-            return initialProducts; // استخدام المنتجات الافتراضية في حالة حدوث خطأ
+            return initialProducts; 
         }
     });
 
@@ -51,10 +44,6 @@ const Products = () => {
     const [currentPage, setCurrentPage] = useState(0);
     const productsPerPage = 4;
 
-    // تحديث localStorage كلما تغيرت قائمة المنتجات
-    // useEffect(() => {
-    //     localStorage.setItem('products', JSON.stringify(products));
-    // }, [products]);
 
     // تحديث localStorage كلما تغيرت قائمة المنتجات
     useEffect(() => {
