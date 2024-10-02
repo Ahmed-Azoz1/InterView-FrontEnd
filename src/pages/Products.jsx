@@ -6,6 +6,7 @@ import SellButton from '../components/SellButton';
 import SortBySelect from '../components/SortBySelect';
 import Pagination from '../components/Pagination';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 import productImage1 from '../assets/1.png';
 import productImage2 from '../assets/2.png';
@@ -78,27 +79,34 @@ const Products = () => {
     };
 
     return (
-        <Container>
-            <div className="flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0 md:space-x-2">
-                <SearchBar search={search} setSearch={setSearch} />
-                <div className="flex flex-col sm:flex-row justify-between items-center gap-2">
-                    <SortBySelect sortBy={sortBy} setSortBy={setSortBy} />
-                    <Link to={'/addProduct'} className="w-full sm:w-auto">
-                        <SellButton />
-                    </Link>
+        <>
+            <Helmet>
+                <title>Products Page</title>
+                <meta name="description" content="Description of the product page" />
+                <meta name="keywords" content="products, ecommerce, buy online" />
+            </Helmet>
+            <Container>
+                <div className="flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0 md:space-x-2">
+                    <SearchBar search={search} setSearch={setSearch} />
+                    <div className="flex flex-col sm:flex-row justify-between items-center gap-2">
+                        <SortBySelect sortBy={sortBy} setSortBy={setSortBy} />
+                        <Link to={'/addProduct'} className="w-full sm:w-auto">
+                            <SellButton />
+                        </Link>
+                    </div>
                 </div>
-            </div>
 
-            <div className="grid gap-4 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 my-16">
-                {currentProducts.map((product) => (
-                    <ProductCard key={product.id} product={product} />
-                ))}
-            </div>
+                <div className="grid gap-4 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 my-16">
+                    {currentProducts.map((product) => (
+                        <ProductCard key={product.id} product={product} />
+                    ))}
+                </div>
 
-            <div className="mt-12">
-                <Pagination pageCount={pageCount} handlePageClick={handlePageClick} />
-            </div>
-        </Container>
+                <div className="mt-12">
+                    <Pagination pageCount={pageCount} handlePageClick={handlePageClick} />
+                </div>
+            </Container>
+        </>
     );
 };
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{memo} from 'react'
 import { HiOutlineHeart } from 'react-icons/hi2'
 import Image from '../assets/image.png'
 
@@ -6,9 +6,11 @@ const ProductCard = ({product}) => {
     return (
         <div className="bg-white rounded-lg w-full max-w-[402px] mx-auto">
             <img 
+                loading="lazy"
                 src={product.image} 
                 alt={product.title} 
                 className="w-full h-[260px] md:h-[326px] object-cover rounded-t-lg"
+                // className="w-full h-[260px] md:h-[326px] object-cover rounded-t-lg transform transition-transform duration-300 ease-in-out cursor-pointer hover:scale-105"
             />
             <div className="flex justify-between items-center mt-1">
                 <div className="flex flex-col">
@@ -21,6 +23,7 @@ const ProductCard = ({product}) => {
             </div>
             <div className='flex items-center gap-2 mt-2'>
                 <img 
+                    loading="lazy"
                     src={Image} 
                     className='w-[20px] h-[20px] rounded-full object-cover' 
                     alt="image" 
@@ -32,4 +35,4 @@ const ProductCard = ({product}) => {
     )
 }
 
-export default ProductCard
+export default memo(ProductCard)
