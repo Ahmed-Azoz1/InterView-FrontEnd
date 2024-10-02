@@ -32,6 +32,6 @@ The **Add Product Page** allows users to submit new products to be displayed on 
 ```
 ## 3. Run the project in development mode:
 ```bash
-   npm run deb
+   npm run dev
 ```
    
