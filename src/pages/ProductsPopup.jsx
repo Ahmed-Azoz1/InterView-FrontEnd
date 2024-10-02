@@ -3,16 +3,19 @@ import Container from '../components/Container';
 import SearchBar from '../components/SearchBar';
 import SellButton from '../components/SellButton';
 import SortBySelect from '../components/SortBySelect';
-import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
 import ProductCard from '../components/ProductCard'
 import Pagination from '../components/Pagination'
+import { Helmet } from 'react-helmet';
 import { initialProducts } from '../utils/Data';
+import AddProductPopup from './AddProductPopup';
 
 
 
-const Products = () => {
 
+
+const ProductsPopup = () => {
+    
+    const [isPopupOpen,setIsPopupOpen] = useState(false)
     const [products, setProducts] = useState(() => {
         try {
             const storedProducts = localStorage.getItem('products');
@@ -38,10 +41,12 @@ const Products = () => {
         }
     }, [products]);
 
-    // دالة لإضافة منتج جديد
-    // const addProduct = (newProduct) => {
-    //     setProducts((prevProducts) => [...prevProducts, newProduct]);
-    // };
+    // // دالة لإضافة منتج جديد
+    const addProduct = (newProduct) => {
+        const updatedProducts = [...products, newProduct];
+        setProducts(updatedProducts);
+        localStorage.setItem('products', JSON.stringify(updatedProducts));
+    };
 
     const filteredProducts = useMemo(() => {
         return products
@@ -73,13 +78,23 @@ const Products = () => {
                 <meta name="keywords" content="products, ecommerce, buy online" />
             </Helmet>
             <Container>
+
+                {
+                    isPopupOpen ? (<AddProductPopup 
+                        isOpen={isPopupOpen} 
+                        onClose={() => setIsPopupOpen(false)} 
+                        onAddProduct={addProduct}
+                        />):(
+                        <>
+                        </>
+                    )
+                }
+
                 <div className="flex flex-col xl:flex-row justify-between items-center space-y-2 md:space-y-0 md:space-x-2">
                     <SearchBar search={search} setSearch={setSearch} />
                     <div className="flex flex-col md:flex-row justify-between xl:justify-end w-full items-center gap-2">
                         <SortBySelect sortBy={sortBy} setSortBy={setSortBy} />
-                        <Link to={'/addProduct'} className="w-full sm:w-auto">
-                            <SellButton />
-                        </Link>
+                        <SellButton setIsPopupOpen={setIsPopupOpen}/>
                     </div>
                 </div>
 
@@ -105,4 +120,4 @@ const Products = () => {
     );
 };
 
-export default Products;
+export default ProductsPopup;

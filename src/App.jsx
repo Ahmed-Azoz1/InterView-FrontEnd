@@ -1,6 +1,8 @@
 import { Routes, Route } from 'react-router-dom';
-import Products from './pages/Products';
-import AddProduct from './pages/AddProduct';
+import ProductsPopup from './pages/ProductsPopup';
+
+// import Products from './pages/Products';
+// import AddProduct from './pages/AddProduct';
 import { Toaster } from 'sonner';
 
 function App() {
@@ -8,8 +10,8 @@ function App() {
       <>
         <Toaster />
         <Routes>
-          <Route path="/" element={<Products />} />
-          <Route path="/addproduct" element={<AddProduct />} />
+          <Route path="/" element={<ProductsPopup />} />
+          {/* <Route path="/addproduct" element={<AddProduct />} /> */}
         </Routes>
       </>
   );

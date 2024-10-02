@@ -21,10 +21,10 @@ const SortBySelect = ({ sortBy, setSortBy }) => {
     };
 
     return (
-        <div className="relative flex items-center space-x-2">
+        <div className="relative flex items-center justify-start w-full md:w-[50%] xl:justify-end space-x-2">
             <span className="font-semibold text-gray-700">Sort by</span>
             
-            <div className="relative w-[220.45px]">
+            <div className="relative w-[84%] md:w-[76%] xl:w-[220.45px]">
                 <select
                     onChange={handleSelectChange}
                     onClick={handleToggle}
