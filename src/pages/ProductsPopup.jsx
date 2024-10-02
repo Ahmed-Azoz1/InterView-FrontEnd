@@ -98,12 +98,6 @@ const ProductsPopup = () => {
                     </div>
                 </div>
 
-                {/* <div className="grid gap-4 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 my-16">
-                    {currentProducts.map((product) => (
-                        <ProductCard key={product.id} product={product} />
-                    ))}
-                </div> */}
-
                 <div className="grid gap-4 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 my-16">
                     <React.Suspense fallback={<div>Loading...</div>}>
                         {currentProducts.map((product) => (
