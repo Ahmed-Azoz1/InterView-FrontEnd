@@ -135,7 +135,7 @@ const AddProduct = () => {
                         type="text"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
-                        className="w-full p-2 border rounded"
+                        className="w-full p-2 border rounded focus:border-[#D9F99D] focus:outline-none focus:ring-1 focus:ring-[#D9F99D]"
                         required
                     />
                 </div>
@@ -145,7 +145,7 @@ const AddProduct = () => {
                     <textarea
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
-                        className="w-full p-2 border resize-none rounded"
+                        className="w-full p-2 border resize-none rounded focus:border-[#D9F99D] focus:outline-none focus:ring-1 focus:ring-[#D9F99D]"
                         required
                         rows={6}
                     ></textarea>
@@ -156,7 +156,7 @@ const AddProduct = () => {
                     <div className="relative">
                         <select
                             onChange={(e) => setCategory(e.target.value)}
-                            className="block w-full border rounded p-2 appearance-none focus:outline-none"
+                            className="block w-full border rounded p-2 appearance-none focus:border-[#D9F99D] focus:outline-none focus:ring-1 focus:ring-[#D9F99D]"
                             style={{ height: '44px' }}
                         >
                             <option value="" disabled>Select</option>
@@ -179,7 +179,7 @@ const AddProduct = () => {
                             type="number"
                             value={price}
                             onChange={(e) => setPrice(e.target.value)}
-                            className="w-full p-2 pl-8 border rounded text-right"
+                            className="w-full p-2 pl-8 border rounded text-right focus:border-[#D9F99D] focus:outline-none focus:ring-1 focus:ring-[#D9F99D]"
                             placeholder="00.00"
                             required
                         />

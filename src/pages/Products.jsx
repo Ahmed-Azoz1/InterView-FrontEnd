@@ -5,8 +5,8 @@ import SellButton from '../components/SellButton';
 import SortBySelect from '../components/SortBySelect';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-const ProductCard = React.lazy(() => import('../components/ProductCard'));
-const Pagination = React.lazy(() => import('../components/Pagination'));
+import ProductCard from '../components/ProductCard'
+import Pagination from '../components/Pagination'
 
 import productImage1 from '../assets/1.png';
 import productImage2 from '../assets/2.png';
