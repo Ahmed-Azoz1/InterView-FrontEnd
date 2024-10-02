@@ -22,8 +22,16 @@ The **Add Product Page** allows users to submit new products to be displayed on 
 ![Products Page](https://github.com/Ahmed-Azoz1/InterView-FrontEnd/blob/2c4c102c9a3bddebca5f4b126adc90647cd86618/Products-Page.png)
 ![Add Product Page](https://github.com/Ahmed-Azoz1/InterView-FrontEnd/blob/2c4c102c9a3bddebca5f4b126adc90647cd86618/Add-Product.png)
 
-## Getting Started
+## 1. Getting Started
 ```bash
-   git clone https://github.com/yourusername/your-repo-name.git
-
-
+   git clone https://github.com/Ahmed-Azoz1/InterView-FrontEnd.git
+```
+## 2. Install the dependencies:
+```bash
+   npm install
+```
+## 3. Run the project in development mode:
+```bash
+   npm run deb
+```
+   
