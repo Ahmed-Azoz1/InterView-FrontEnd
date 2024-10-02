@@ -1,17 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import ProductCard from '../components/ProductCard';
+import React, { useState, useEffect, useMemo } from 'react';
 import Container from '../components/Container';
 import SearchBar from '../components/SearchBar';
 import SellButton from '../components/SellButton';
 import SortBySelect from '../components/SortBySelect';
-import Pagination from '../components/Pagination';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+const ProductCard = React.lazy(() => import('../components/ProductCard'));
+const Pagination = React.lazy(() => import('../components/Pagination'));
 
 import productImage1 from '../assets/1.png';
 import productImage2 from '../assets/2.png';
 import productImage3 from '../assets/3.png';
 import productImage4 from '../assets/4.png';
+
+
 
 const Products = () => {
     const initialProducts = [
@@ -60,17 +62,21 @@ const Products = () => {
         setProducts((prevProducts) => [...prevProducts, newProduct]);
     };
 
-    const filteredProducts = products
-        .filter((product) => product.title.toLowerCase().includes(search.toLowerCase()))
-        .sort((a, b) => {
-            if (sortBy === 'price-asc') return a.price - b.price;
-            if (sortBy === 'price-desc') return b.price - a.price;
-            return 0;
-        });
+    const filteredProducts = useMemo(() => {
+        return products
+            .filter((product) => product.title.toLowerCase().includes(search.toLowerCase()))
+            .sort((a, b) => {
+                if (sortBy === 'price-asc') return a.price - b.price;
+                if (sortBy === 'price-desc') return b.price - a.price;
+                return 0;
+            });
+        }, [products, search, sortBy]);
 
     const indexOfLastProduct = (currentPage + 1) * productsPerPage;
     const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-    const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
+    const currentProducts = useMemo(() => {
+        return filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
+    }, [filteredProducts, indexOfFirstProduct, indexOfLastProduct]);
 
     const pageCount = Math.ceil(filteredProducts.length / productsPerPage);
 
@@ -96,10 +102,18 @@ const Products = () => {
                     </div>
                 </div>
 
-                <div className="grid gap-4 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 my-16">
+                {/* <div className="grid gap-4 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 my-16">
                     {currentProducts.map((product) => (
                         <ProductCard key={product.id} product={product} />
                     ))}
+                </div> */}
+
+                <div className="grid gap-4 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 my-16">
+                    <React.Suspense fallback={<div>Loading...</div>}>
+                        {currentProducts.map((product) => (
+                            <ProductCard key={product.id} product={product} />
+                        ))}
+                    </React.Suspense>
                 </div>
 
                 <div className="mt-12">
